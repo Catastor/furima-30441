@@ -53,3 +53,4 @@
 |municipalities |string  |NOT NULL  |
 |house_number   |string  |NOT NULL  |
 |phone_number   |string  |NOT NULL  |
+
