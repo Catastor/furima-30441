@@ -16,6 +16,7 @@
 
 
 
+
 **items table**
 |   column   |    type    |  option  |
 |------------|------------|----------|
@@ -24,6 +25,7 @@
 |item_status |string      |NOT NULL  |
 |price       |integer     |NOT NULL  |
 |image       |            |          |
+
 
 
 
@@ -36,12 +38,14 @@
 
 
 
+
 **buyer table**
 |      column      |  type  |  option  |
 |------------------|--------|----------|
 |delivery_charge   |string  |NOT NULL  |
 |shipment_source   |string  |NOT NULL  |
 |date_of_shipment  |integer |NOT NULL  |
+
 
 
 
