@@ -23,7 +23,7 @@
 |--------------------|------------|------------------------------|
 |name                |string      |null: false                   |
 |info                |text        |null: false                   |
-|category_id         |string      |null: false                   |
+|category_id         |integer     |null: false                   |
 |status_id           |integer     |null: false                   |
 |price               |integer     |null: false                   |
 |delivery_charge_id  |integer     |null: false                   |
