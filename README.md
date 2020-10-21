@@ -10,51 +10,64 @@
 |last_name     |string  |NOT NULL  |
 |first_furigana|string  |NOT NULL  |
 |last_furigana |string  |NOT NULL  |
-|birth_year    |string  |NOT NULL  |
-|birth_month   |string  |NOT NULL  |
-|birth_day     |string  |NOT NULL  |
+|birthday      |date    |NOT NULL  |
 
-
+has_many: items
+has_many: comments
+has_one : buyer
 
 
 **items table**
-|   column   |    type    |  option  |
-|------------|------------|----------|
-|item_name   |string      |NOT NULL  |
-|item_info   |text        |NOT NULL  |
-|item_status |string      |NOT NULL  |
-|price       |integer     |NOT NULL  |
-|image       |            |          |
+|      column      |  type  |  option  |
+|------------------|--------|----------|
+|name              |string  |NOT NULL  |
+|info              |text    |NOT NULL  |
+|category          |string  |NOT NULL  |
+|status            |integer |NOT NULL  |
+|price             |integer |NOT NULL  |
+|delivery_charge   |integer |NOT NULL  |
+|shipment_source   |integer |NOT NULL  |
+|date_of_shipment  |integer |NOT NULL  |
 
-
+**association**
+belongs_to :user
+has_many   :comments
+has_one    :buyer
 
 
 **comments table**
-|  column  |    type    |  option  |
-|----------|------------|----------|
-|text      |text        |NOT NULL  |
-|user      |references  |          |
-|item      |references  |          |
+| column |    type    |   option   |
+|--------|------------|------------|
+|text    |text        |NOT NULL    |
+|user    |references  |foreign_key |
+|item    |references  |foreign_key |
 
-
+**association**
+belongs_to :user
+belongs_to :item
 
 
 **buyer table**
-|      column      |  type  |  option  |
-|------------------|--------|----------|
-|delivery_charge   |string  |NOT NULL  |
-|shipment_source   |string  |NOT NULL  |
-|date_of_shipment  |integer |NOT NULL  |
+| column |    type    |   option   |
+|--------|------------|------------|
+|user    |references  |foreign_key |
+|item    |references  |foreign_key |
 
-
+**association**
+belongs_to :user
+belongs_to :item
+has_one    :address
 
 
 **address table**
-|     title     |  type  |  option  |
-|---------------|--------|----------|
-|postal_code    |string  |NOT NULL  |
-|prefectures    |string  |NOT NULL  |
-|municipalities |string  |NOT NULL  |
-|house_number   |string  |NOT NULL  |
-|phone_number   |string  |NOT NULL  |
+|     column     |  type  |  option  |
+|----------------|--------|----------|
+|postal_code     |string  |NOT NULL  |
+|prefectures     |integer |NOT NULL  |
+|municipalities  |string  |NOT NULL  |
+|house_number    |string  |NOT NULL  |
+|building        |string  |          |
+|phone_number    |string  |NOT NULL  |
 
+**association**
+belongs_to :buyer
