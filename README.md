@@ -12,27 +12,28 @@
 |last_furigana |string  |NOT NULL  |
 |birthday      |date    |NOT NULL  |
 
-has_many: items
-has_many: comments
-has_one : buyer
+**association**
+- has_many: items
+- has_many: comments
+- has_one : buyer
 
 
 **items table**
-|      column      |  type  |  option  |
-|------------------|--------|----------|
-|name              |string  |NOT NULL  |
-|info              |text    |NOT NULL  |
-|category          |string  |NOT NULL  |
-|status            |integer |NOT NULL  |
-|price             |integer |NOT NULL  |
-|delivery_charge   |integer |NOT NULL  |
-|shipment_source   |integer |NOT NULL  |
-|date_of_shipment  |integer |NOT NULL  |
+|       column       |  type  |  option  |
+|--------------------|--------|----------|
+|name                |string  |NOT NULL  |
+|info                |text    |NOT NULL  |
+|category_id         |string  |NOT NULL  |
+|status_id           |integer |NOT NULL  |
+|price               |integer |NOT NULL  |
+|delivery_charge_id  |integer |NOT NULL  |
+|shipment_source_id  |integer |NOT NULL  |
+|date_of_shipment_id |integer |NOT NULL  |
 
 **association**
-belongs_to :user
-has_many   :comments
-has_one    :buyer
+- belongs_to :user
+- has_many   :comments
+- has_one    :buyer
 
 
 **comments table**
@@ -43,8 +44,8 @@ has_one    :buyer
 |item    |references  |foreign_key |
 
 **association**
-belongs_to :user
-belongs_to :item
+- belongs_to :user
+- belongs_to :item
 
 
 **buyer table**
@@ -54,20 +55,20 @@ belongs_to :item
 |item    |references  |foreign_key |
 
 **association**
-belongs_to :user
-belongs_to :item
-has_one    :address
+- belongs_to :user
+- belongs_to :item
+- has_one    :address
 
 
 **address table**
 |     column     |  type  |  option  |
 |----------------|--------|----------|
 |postal_code     |string  |NOT NULL  |
-|prefectures     |integer |NOT NULL  |
+|shipment_source |integer |NOT NULL  |
 |municipalities  |string  |NOT NULL  |
 |house_number    |string  |NOT NULL  |
 |building        |string  |          |
 |phone_number    |string  |NOT NULL  |
 
 **association**
-belongs_to :buyer
+- belongs_to :buyer
