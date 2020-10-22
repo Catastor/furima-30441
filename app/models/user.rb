@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :buyers
 
   validates :nickname, presence: true, length: {maximum: 40} 
+  validates :email, format: { with: /\A[\w+-.]+@[a-z\d-.]+.[a-z]+\z/i }
+  validates :password, format: { with: /\A[a-zA-Z\d]+\z/ }, length: {minimum: 5}
   validates :birthday, presence: true
   with_options presence: true, format: { with: /\A[一-龥]+\z/ } do
     validates :last_name, format: { message: "Last name Full-Width characters" }
