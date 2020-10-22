@@ -8,5 +8,14 @@ class User < ApplicationRecord
   has_many :comments
   has_many :buyers
 
-  validates :nickname, :last_name, :first_name, :last_furigana, :first_furigana, :birthday, presence: true
+  validates :nickname, presence: true, length: {maximum: 40} 
+  validates :birthday, presence: true
+  with_options presence: true, format: { with: /\A[一-龥]+\z/ } do
+    validates :last_name, format: { message: "Last name Full-Width characters" }
+    validates :first_name, format: { message: "First name Full-Width characters" }
+  end
+  with_options presence: true, format: { with: /\A[ァ-ヶー－]+\z/ } do
+    validates :last_furigana, format: { message: "Last furigana Full-width katakana charaters" }
+    validates :first_furigana, format: { message: "First furigana Full-width katakana charaters" }
+  end
 end
