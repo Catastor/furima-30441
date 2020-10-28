@@ -4,11 +4,13 @@ class Item < ApplicationRecord
     validates :name
     validates :info
     validates :image
+    validates :price
   end
 
-  validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
-  
-  validates :category_id, :status_id, :delivery_charge_id, :shipment_source_id, :date_of_shipment_id, numericality: { other_than: 1 }
+  validates :price, format: { with: /\A[0-9]+\z/, message: 'Half-width number' }
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: 'Out of setting range'}
+
+  validates :category_id, :status_id, :delivery_charge_id, :shipment_source_id, :date_of_shipment_id, numericality: { other_than: 1 , message: 'Select'}
 
   belongs_to :user
   has_many   :comments
