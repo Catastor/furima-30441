@@ -19,9 +19,9 @@ class ItemsController < ApplicationController
     end
   end
 
-  def show
-    @item = Item.all
-  end
+  # def show
+    # @item = Item.all
+  # end
 
   private
 
