@@ -26,8 +26,7 @@
     <%= link_to '商品の編集', "#", method: :get, class: "item-red-btn" %>
     <p class='or-text'>or</p>
     <%= link_to '削除', "#", method: :delete, class:'item-destroy' %>
-    <% end %>
-    <% if user_signed_in? && current_user.id != @item.user_id %>
+    <% elsif user_signed_in? && current_user.id != @item.user_id %>
     <%= link_to '購入画面に進む', "#" ,class:"item-red-btn"%>
     <% end %>
 
@@ -42,23 +41,23 @@
         </tr>
         <tr>
           <th class="detail-item">カテゴリー</th>
-          <td class="detail-value"><%= @category[:name] %></td>
+          <td class="detail-value"><%= @item.category.name %></td>
         </tr>
         <tr>
           <th class="detail-item">商品の状態</th>
-          <td class="detail-value"><%= @status[:name] %></td>
+          <td class="detail-value"><%= @item.status.name %></td>
         </tr>
         <tr>
           <th class="detail-item">配送料の負担</th>
-          <td class="detail-value"><%= @delivery_charge[:name] %></td>
+          <td class="detail-value"><%= @item.delivery_charge.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送元の地域</th>
-          <td class="detail-value"><%= @shipment_source[:name] %></td>
+          <td class="detail-value"><%= @item.shipment_source.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送日の目安</th>
-          <td class="detail-value"><%= @date_of_shipment[:name] %></td>
+          <td class="detail-value"><%= @item.date_of_shipment.name %></td>
         </tr>
       </tbody>
     </table>
@@ -96,7 +95,7 @@
       後ろの商品 ＞
     </a>
   </div>
-  <a href="#" class='another-item'><%= @category[:name] %>をもっと見る</a>
+  <a href="#" class='another-item'><%= @item.category.name %>をもっと見る</a>
 </div>
 
 <%= render "shared/footer" %>
