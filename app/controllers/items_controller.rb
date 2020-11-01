@@ -21,11 +21,6 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @category = Category.data.detect { |s| s[:id] == @item.category_id }
-    @status = Status.data.detect { |s| s[:id] == @item.status_id }
-    @delivery_charge = DeliveryCharge.data.detect { |s| s[:id] == @item.delivery_charge_id }
-    @shipment_source = ShipmentSource.data.detect { |s| s[:id] == @item.shipment_source_id }
-    @date_of_shipment = DateOfShipment.data.detect { |s| s[:id] == @item.date_of_shipment_id }
   end
 
   private
