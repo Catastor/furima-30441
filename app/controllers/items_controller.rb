@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
+  before_action :mismatch_id, except: [:index, :show]
+  before_action :recommend_login, except: [:index, :show]
 
   def index
     @items = Item.order('created_at DESC')
@@ -23,9 +25,36 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def item_params
     params.require(:item).permit(:image, :name, :info, :price, :category_id, :status_id, :delivery_charge_id, :shipment_source_id, :date_of_shipment_id).merge(user_id: current_user.id)
   end
+
+  def mismatch_id
+    item = Item.find(params[:id])
+    if user_signed_in? && current_user.id != item.user_id
+      redirect_to action: :index
+    end
+  end
+
+  def recommend_login
+    unless user_signed_in?
+      redirect_to user_session_path
+    end
+  end
+
 end
