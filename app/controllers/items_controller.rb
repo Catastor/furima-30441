@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
-  before_action :mismatch_id, except: [:index, :show, :new]
+  before_action :mismatch_id, except: [:index, :new, :create, :show, :destroy]
   before_action :recommend_login, except: [:index, :show]
 
   def index
@@ -54,6 +54,8 @@ class ItemsController < ApplicationController
     item = Item.find(params[:id])
     if user_signed_in? && current_user.id != item.user_id
       redirect_to action: :index
+    else
+      redirect_to root_path
     end
   end
 
