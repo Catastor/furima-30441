@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
-  before_action :mismatch_id, except: [:index, :show]
+  before_action :mismatch_id, except: [:index, :show, :new]
   before_action :recommend_login, except: [:index, :show]
 
   def index
@@ -38,10 +38,11 @@ class ItemsController < ApplicationController
     end
   end
 
-  # def destroy
-    # item = Item.find(params[:id])
-    # item.destroy
-  # end
+  def destroy
+    item = Item.find(params[:id])
+    item.destroy
+    redirect_to root_path
+  end
 
   private
 
