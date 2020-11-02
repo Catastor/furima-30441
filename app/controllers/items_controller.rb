@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
-  before_action :mismatch_id, except: [:index, :new, :create, :show, :destroy]
+  before_action :mismatch_id, only: [:edit, :update]
   before_action :recommend_login, except: [:index, :show]
-  before_action :set_item, only: [:create, :edit, :show, :update, :destroy]
+  before_action :set_item, except: [:index]
 
   def index
     @items = Item.order('created_at DESC')
