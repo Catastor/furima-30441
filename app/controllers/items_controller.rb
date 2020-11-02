@@ -60,9 +60,6 @@ class ItemsController < ApplicationController
   end
 
   def recommend_login
-    unless user_signed_in?
-      redirect_to user_session_path
-    end
+    redirect_to user_session_path unless user_signed_in?
   end
-
 end
