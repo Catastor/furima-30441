@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :items
   has_many :comments
   has_many :buyers
+  has_many :orders
 
   validates :nickname, presence: true, length: { maximum: 40 }
   validates :birthday, presence: true
