@@ -1,6 +1,6 @@
 class PurchaseInfo
   include ActiveModel::Model
-  attr_accessor :postal_code, :shipment_source_id, :municipalities, :house_number, :building, :phone_number, :token, :item_id, :user_id, :buyer_id
+  attr_accessor :postal_code, :shipment_source_id, :municipalities, :house_number, :building, :phone_number, :token, :item_id, :user_id
 
   with_options presence: true do
     validates :token
