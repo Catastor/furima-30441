@@ -5,7 +5,12 @@ RSpec.describe PurchaseInfo, type: :model do
     @purchase_info = FactoryBot.build(:purchase_info)
   end
 
-  it '建物名以外の値が入力されていれば保存できる' do
+  it '全ての値が入力された状態で保存できる' do
+    expect(@purchase_info).to be_valid
+  end
+
+  it '建物名が空でも他の値が入力されていれば保存できる' do
+    @purchase_info.building = nil
     expect(@purchase_info).to be_valid
   end
 
