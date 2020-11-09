@@ -7,11 +7,11 @@
     </h2>
     <div class='item-img-content'>
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <%# sold outの表示は購入機能実装後に実装予定 %>
-      <%# <div class='sold-out'> %>
-        <%# <span>Sold Out!!</span> %>
-      <%# </div> %>
-      <%# //sold outの表示は購入機能実装後に実装予定 %>
+      <% if @item.buyed.present? %>
+        <div class='sold-out'>
+          <span>Sold Out!!</span>
+        </div>
+      <% end %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
@@ -26,7 +26,7 @@
     <%= link_to '商品の編集', edit_item_path , method: :get, class: "item-red-btn" %>
     <p class='or-text'>or</p>
     <%= link_to '削除', item_path, method: :delete, class:'item-destroy' %>
-    <% elsif user_signed_in? && current_user.id != @item.user_id %>
+    <% elsif user_signed_in? && current_user.id != @item.user_id && @item.buyed.blank? %>
     <%= link_to '購入画面に進む', item_orders_path(@item.id) ,class:"item-red-btn"%>
     <% end %>
 
