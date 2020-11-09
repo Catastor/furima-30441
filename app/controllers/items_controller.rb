@@ -2,10 +2,12 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
   before_action :mismatch_id, only: [:edit, :update]
   before_action :recommend_login, except: [:index, :show]
-  before_action :set_item, except: [:index]
+  before_action :set_item, only: [:show, :edit, :update]
 
   def index
     @items = Item.order('created_at DESC')
+    @buyers = Buyer.order('created_at DESC')
+    
   end
 
   def new
@@ -13,6 +15,7 @@ class ItemsController < ApplicationController
   end
 
   def create
+    @item = Item.new(item_params)
     if @item.valid?
       @item.save
       redirect_to root_path
@@ -51,10 +54,9 @@ class ItemsController < ApplicationController
   end
 
   def mismatch_id
+    set_item
     if user_signed_in? && current_user.id != @item.user_id
       redirect_to action: :index
-    else
-      redirect_to root_path
     end
   end
 
