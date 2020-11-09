@@ -7,6 +7,7 @@ FactoryBot.define do
     shipment_source_id { 2 }
     municipalities { '函館市' }
     house_number { '123' }
+    building { '12' }
     phone_number { '12312341234' }
   end
 end
