@@ -1,5 +1,8 @@
 class OrdersController < ApplicationController
   before_action :set_item
+  before_action :recommend_login
+  before_action :mismatch_id
+  before_action :sold_out
 
   def index
     @purchase_info = PurchaseInfo.new
@@ -34,6 +37,17 @@ class OrdersController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def recommend_login
+    redirect_to user_session_path unless user_signed_in?
+  end
+
+  def mismatch_id
+    set_item
+    if user_signed_in? && current_user.id == @item.user_id || @item.buyed.present?
+      redirect_to root_path
+    end
   end
 
 end
