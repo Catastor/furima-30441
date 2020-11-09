@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_06_095556) do
+ActiveRecord::Schema.define(version: 2020_11_09_055708) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -77,16 +77,21 @@ ActiveRecord::Schema.define(version: 2020_11_06_095556) do
     t.integer "shipment_source_id", null: false
     t.integer "date_of_shipment_id", null: false
     t.bigint "user_id", null: false
+    t.string "buyed"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
     t.bigint "item_id", null: false
     t.bigint "buyer_id", null: false
+    t.bigint "address_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["address_id"], name: "index_orders_on_address_id"
     t.index ["buyer_id"], name: "index_orders_on_buyer_id"
     t.index ["item_id"], name: "index_orders_on_item_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -113,6 +118,8 @@ ActiveRecord::Schema.define(version: 2020_11_06_095556) do
   add_foreign_key "buyers", "users"
   add_foreign_key "comments", "items"
   add_foreign_key "comments", "users"
+  add_foreign_key "orders", "addresses"
   add_foreign_key "orders", "buyers"
   add_foreign_key "orders", "items"
+  add_foreign_key "orders", "users"
 end
