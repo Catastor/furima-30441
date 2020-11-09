@@ -44,6 +44,6 @@ class OrdersController < ApplicationController
 
   def mismatch_id
     set_item
-    redirect_to root_path if user_signed_in? && current_user.id == @item.user_id || @item.buyed.present?
+    redirect_to root_path if user_signed_in? && current_user.id == @item.user_id
   end
 end
