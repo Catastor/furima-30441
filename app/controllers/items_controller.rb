@@ -1,8 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, except: [:index, :show, :destroy]
   before_action :mismatch_id, only: [:edit, :update]
-  before_action :recommend_login, except: [:index, :show]
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :set_item, except:[:index, :new, :create]
 
   def index
     @items = Item.order('created_at DESC')
@@ -52,15 +51,10 @@ class ItemsController < ApplicationController
   end
 
   def mismatch_id
-    set_item
     redirect_to action: :index if user_signed_in? && current_user.id != @item.user_id
   end
 
   def set_item
     @item = Item.find(params[:id])
-  end
-
-  def recommend_login
-    redirect_to user_session_path unless user_signed_in?
   end
 end
