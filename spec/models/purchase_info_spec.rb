@@ -5,6 +5,10 @@ RSpec.describe PurchaseInfo, type: :model do
     @purchase_info = FactoryBot.build(:purchase_info)
   end
 
+  it '建物名以外の値が入力されていれば保存できる' do
+    expect(@purchase_info).to be_valid
+  end
+
   it 'tokenが空では保存できない' do
     @purchase_info.token = nil
     @purchase_info.valid?
@@ -58,4 +62,11 @@ RSpec.describe PurchaseInfo, type: :model do
     @purchase_info.valid?
     expect(@purchase_info.errors.full_messages).to include('Phone number Input only number')
   end
+
+  it '電話番号はハイフンがある場合、12桁以上の場合は保存できない' do
+    @purchase_info.phone_number = '123-1234-1234'
+    @purchase_info.valid?
+    expect(@purchase_info.errors.full_messages).to include('Phone number Input only number')
+  end
+
 end
