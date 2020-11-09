@@ -2,7 +2,6 @@ class OrdersController < ApplicationController
   before_action :set_item
   before_action :recommend_login
   before_action :mismatch_id
-  before_action :sold_out
 
   def index
     @purchase_info = PurchaseInfo.new
