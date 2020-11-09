@@ -7,7 +7,6 @@ class ItemsController < ApplicationController
   def index
     @items = Item.order('created_at DESC')
     @buyers = Buyer.order('created_at DESC')
-    
   end
 
   def new
@@ -40,8 +39,8 @@ class ItemsController < ApplicationController
 
   def destroy
     if current_user.id == @item.user_id
-    @item.destroy
-    redirect_to root_path
+      @item.destroy
+      redirect_to root_path
     else
       render :show
     end
@@ -55,9 +54,7 @@ class ItemsController < ApplicationController
 
   def mismatch_id
     set_item
-    if user_signed_in? && current_user.id != @item.user_id
-      redirect_to action: :index
-    end
+    redirect_to action: :index if user_signed_in? && current_user.id != @item.user_id
   end
 
   def set_item

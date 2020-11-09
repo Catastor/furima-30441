@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     if @purchase_info.valid?
       pay_item
       @purchase_info.save
-      @item.update( buyed: current_user.id )
+      @item.update(buyed: current_user.id)
       redirect_to root_path
     else
       render :index
@@ -22,11 +22,11 @@ class OrdersController < ApplicationController
   private
 
   def purchase_params
-    params.require(:purchase_info).permit(:postal_code, :shipment_source_id, :municipalities, :house_number, :building, :phone_number).merge(token: params[:token] ,user_id: current_user.id, item_id: params[:item_id])
+    params.require(:purchase_info).permit(:postal_code, :shipment_source_id, :municipalities, :house_number, :building, :phone_number).merge(token: params[:token], user_id: current_user.id, item_id: params[:item_id])
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: params[:token],
@@ -44,9 +44,6 @@ class OrdersController < ApplicationController
 
   def mismatch_id
     set_item
-    if user_signed_in? && current_user.id == @item.user_id || @item.buyed.present?
-      redirect_to root_path
-    end
+    redirect_to root_path if user_signed_in? && current_user.id == @item.user_id || @item.buyed.present?
   end
-
 end
