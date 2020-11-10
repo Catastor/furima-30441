@@ -1,8 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, except: [:index, :show, :destroy]
   before_action :mismatch_id, only: [:edit, :update]
-  before_action :recommend_login, except: [:index, :show]
-  before_action :set_item, except: [:index]
+  before_action :set_item, except:[:index, :new, :create]
 
   def index
     @items = Item.order('created_at DESC')
@@ -13,6 +12,7 @@ class ItemsController < ApplicationController
   end
 
   def create
+    @item = Item.new(item_params)
     if @item.valid?
       @item.save
       redirect_to root_path
@@ -37,8 +37,8 @@ class ItemsController < ApplicationController
 
   def destroy
     if current_user.id == @item.user_id
-    @item.destroy
-    redirect_to root_path
+      @item.destroy
+      redirect_to root_path
     else
       render :show
     end
@@ -51,18 +51,10 @@ class ItemsController < ApplicationController
   end
 
   def mismatch_id
-    if user_signed_in? && current_user.id != @item.user_id
-      redirect_to action: :index
-    else
-      redirect_to root_path
-    end
+    redirect_to action: :index if user_signed_in? && current_user.id != @item.user_id
   end
 
   def set_item
     @item = Item.find(params[:id])
-  end
-
-  def recommend_login
-    redirect_to user_session_path unless user_signed_in?
   end
 end
