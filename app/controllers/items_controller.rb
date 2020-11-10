@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :mismatch_id, only: [:edit, :update]
   before_action :set_item, except:[:index, :new, :create]
 
@@ -51,6 +51,7 @@ class ItemsController < ApplicationController
   end
 
   def mismatch_id
+    set_item
     redirect_to action: :index if user_signed_in? && current_user.id != @item.user_id
   end
 
