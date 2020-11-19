@@ -30,3 +30,6 @@
 yarn-debug.log*
 .yarn-integrity
 .Ds_Store.DS_Store
+app/channels/.DS_Store
+app/.DS_Store
+.DS_Store
