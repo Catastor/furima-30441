@@ -6,5 +6,8 @@ class CommentsController < ApplicationController
 
   def create
     @message.new(text: params[:message][:text])
+    if @comment.save
+      ActionCable.server.broadcast 'comment_channel', content: @comment
+    end
   end
 end
