@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   resources :items do
     resources :buyers
     resources :orders
-    resources :comments
+    resources :comments ,only: [:create, :new]
   end
 end
