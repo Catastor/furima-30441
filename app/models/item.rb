@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   with_options presence: true do
+    validates :text
     validates :name
     validates :info
     validates :image
