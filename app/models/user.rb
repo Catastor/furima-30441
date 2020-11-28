@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :buyers
   has_many :orders
 
+  validates :text, presence: true
   validates :nickname, presence: true, length: { maximum: 40 }
   validates :birthday, presence: true
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'include both letters and numbers' }, length: { minimum: 5 }
