@@ -74,7 +74,7 @@
   </div>
 
   <div class="comment-box">
-    <%= form_with model: @comment do |c| %>
+    <%= form_with(model: [@item ,@comment]) do |c| %>
       <%= c.text_field :text, class: "comment-text"%>
       <p class="comment-warn">
         相手のことを考え丁寧なコメントを心がけましょう。
@@ -86,8 +86,9 @@
     <% end %>
   </div>
   <div id='comments'>
-    <% @comments.each do |comment| %>
-      <p><%= comment.text %><%= comment.user.name %></p>
+    <% @comments.each do |com| %>
+      <p><%= com.text %></p>
+    <% end %>
   </div>
   <div class="links">
     <a href="#" class="change-item-btn">
